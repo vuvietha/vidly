@@ -49,6 +49,13 @@ namespace Vidly.Controllers
             };     
             return View(ViewModel);
         }
+        [HttpPost]
+        public ActionResult Create( CustomerModel customer)
+        {
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Customer");
+        }
         private IEnumerable<CustomerModel> GetCustomers()
         {
             return new List<CustomerModel>

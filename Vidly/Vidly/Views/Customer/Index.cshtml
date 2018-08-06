@@ -20,7 +20,7 @@
 @section scripts{
     <script>
         $(function () {
-            $("#customers").DataTable({
+           var table = $("#customers").DataTable({
                 ajax: {
                     url: "/api/customer",
                     dataSrc : ""
@@ -60,7 +60,7 @@
                             method: "DELETE",
                             success: function (result) {
                                 console.log("success");
-                                button.parents("tr").remove();
+                                table.row(button.parents("tr")).remove().draw();
                             }
 
                         });

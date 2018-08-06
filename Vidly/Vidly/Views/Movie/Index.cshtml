@@ -23,11 +23,12 @@
             }
             else
             {
-                <table class="table table-bordered table-hover">
+                <table id="movie-table" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Movie</th>
                             <th>Genere</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +37,11 @@
                             <tr>
                                 <td>@Html.ActionLink(movie.Name, "Edit", "Movie", new { id = movie.Id }, null)</td>
                                 <td>@movie.Genere.Name</td>
+                                <td>
+                                    <button class="btn-link js-delete" data-movie-id ="@movie.Id" >
+                                        Delete
+                                    </button>
+                                </td>
                             </tr>
 
                         }
@@ -49,8 +55,29 @@
 
     </div>
    
-
 </div>
+@section scripts{
+    <script>
+        $(function () {
+            $("#movie-table .js-delete").on("click", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure delete this movie?", function () {
+                    $.ajax({
+                        url: "/api/movie/" + button.attr("data-movie-id"),
+                        method: "DELETE",
+                        success: function (result) {
+                            console.log("Success");
+                            button.parents("tr").remove();
+                        }
+                    });
 
+                });
+
+            });
+
+        });
+
+    </script>
+    }
 
 

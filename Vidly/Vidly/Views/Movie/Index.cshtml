@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Vidly.Models.MovieModel>
+﻿
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,65 +11,71 @@
             <a href="@Url.Action("Create", "Movie")" class="btn btn-primary">NEW MOVIE</a>
 
         </div>
-        
+
 
     </div>
     <br />
     <div class="row">
         <div class="col-md-12">
-            @if (Model.Count() == 0)
-            {
-                <text>No Movie to show</text>
-            }
-            else
-            {
-                <table id="movie-table" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Movie</th>
-                            <th>Genere</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var movie in Model)
-                {
-                            <tr>
-                                <td>@Html.ActionLink(movie.Name, "Edit", "Movie", new { id = movie.Id }, null)</td>
-                                <td>@movie.Genere.Name</td>
-                                <td>
-                                    <button class="btn-link js-delete" data-movie-id ="@movie.Id" >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
 
-                        }
-
-                    </tbody>
-                </table>
-
-            }
-
+            <table id="movie-table" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Movie</th>
+                        <th>Genere</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
 
     </div>
-   
+
 </div>
 @section scripts{
     <script>
         $(function () {
-            $("#movie-table .js-delete").on("click", function () {
-                var button = $(this);
-                bootbox.confirm("Are you sure delete this movie?", function () {
-                    $.ajax({
-                        url: "/api/movie/" + button.attr("data-movie-id"),
-                        method: "DELETE",
-                        success: function (result) {
-                            console.log("Success");
-                            button.parents("tr").remove();
+            var table = $("#movie-table").DataTable({
+                ajax: {
+                    url: "/api/movie",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, movie) {
+                            return "<a href = '/movie/edit/" + movie.id + "'>" + movie.name + "</a>";
                         }
-                    });
+
+                    },
+                    {
+                        data: "genere.name"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class = 'btn-link js-delete-movie' data-movie-id ='" + data + "'>Delete</button>";
+                        }
+                    }
+
+                ]
+
+            });
+            $("#movie-table").on("click", ".js-delete-movie", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure delete this movie?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/movie/" + button.attr("data-movie-id"),
+                            method: "DELETE",
+                            success: function (result) {
+                                console.log("Success");
+                                table.row(button.parents("tr")).remove().draw();                             
+                            }
+                        });
+
+                    }               
 
                 });
 
@@ -78,6 +84,6 @@
         });
 
     </script>
-    }
+}
 
 

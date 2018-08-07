@@ -63,8 +63,10 @@ namespace Vidly.Controllers
         }
         public ActionResult Index()
         {
-           
-            return View();
+            //if (User.IsInRole("CanManageMovie"))
+            if(User.IsInRole(RoleName.CanManageMovie))
+                return View("List");       
+            return View("ListOnlyRead");
 
         }
         public ActionResult Detail(int id)
@@ -74,6 +76,8 @@ namespace Vidly.Controllers
                 return HttpNotFound();
             return View(movie);
         }
+
+        [Authorize(Roles = RoleName.CanManageMovie)]
         public ActionResult Create()
         {
             //ViewBag.Title = "New Movie";

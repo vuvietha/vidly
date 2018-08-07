@@ -157,10 +157,10 @@ namespace Vidly.Controllers
                 if (result.Succeeded)
                 {
                     //Temp code
-                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                    var roleManager = new RoleManager<IdentityRole>(roleStore);
-                    await roleManager.CreateAsync(new IdentityRole("CanManageMovie"));
-                    await UserManager.AddToRoleAsync(user.Id, "CanManageMovie");
+                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    //await roleManager.CreateAsync(new IdentityRole("CanManageMovie"));
+                    //await UserManager.AddToRoleAsync(user.Id, "CanManageMovie");
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

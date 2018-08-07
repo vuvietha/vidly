@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h2>Movies</h2>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+
+            <table id="movie-table" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Movie</th>
+                        <th>Genere</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            var table = $("#movie-table").DataTable({
+                ajax: {
+                    url: "/api/movie",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                       
+                    },
+                    {
+                        data: "genere.name"
+                    },
+                   
+
+                ]
+
+            });
+            $("#movie-table").on("click", ".js-delete-movie", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure delete this movie?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/api/movie/" + button.attr("data-movie-id"),
+                            method: "DELETE",
+                            success: function (result) {
+                                console.log("Success");
+                                table.row(button.parents("tr")).remove().draw();                             
+                            }
+                        });
+
+                    }               
+
+                });
+
+            });
+
+        });
+
+    </script>
+}
+
+

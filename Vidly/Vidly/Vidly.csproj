@@ -269,6 +269,18 @@
     <Compile Include="Migrations\201808070630035_AddDrivingLicenseToApplicationUser.Designer.cs">
       <DependentUpon>201808070630035_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808071747220_AddPhoneToMovie.cs" />
+    <Compile Include="Migrations\201808071747220_AddPhoneToMovie.Designer.cs">
+      <DependentUpon>201808071747220_AddPhoneToMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808071751571_RemovePhoneToMovie.cs" />
+    <Compile Include="Migrations\201808071751571_RemovePhoneToMovie.Designer.cs">
+      <DependentUpon>201808071751571_RemovePhoneToMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808071756177_AddPhoneToApplicationUser.cs" />
+    <Compile Include="Migrations\201808071756177_AddPhoneToApplicationUser.Designer.cs">
+      <DependentUpon>201808071756177_AddPhoneToApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CustomerModel.cs" />
@@ -581,6 +593,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808070630035_AddDrivingLicenseToApplicationUser.resx">
       <DependentUpon>201808070630035_AddDrivingLicenseToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808071747220_AddPhoneToMovie.resx">
+      <DependentUpon>201808071747220_AddPhoneToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808071751571_RemovePhoneToMovie.resx">
+      <DependentUpon>201808071751571_RemovePhoneToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808071756177_AddPhoneToApplicationUser.resx">
+      <DependentUpon>201808071756177_AddPhoneToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

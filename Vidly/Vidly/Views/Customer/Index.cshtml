@@ -1,10 +1,16 @@
-﻿
+﻿@model  IEnumerable<Vidly.Models.CustomerModel>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Customers</h2>
+<ul>
+    @foreach (var customer in Model)
+    {
+        <li>@customer.Name - @customer.MembershipType.Name</li>
+    }
+</ul>
 <table id="customers" class="table table-bordered table-hover">
     <thead>
         <tr>

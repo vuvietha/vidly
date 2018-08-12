@@ -37,7 +37,13 @@ namespace Vidly.Controllers
         {
             if (!ModelState.IsValid)
             {
-
+                var movieLst = _context.Movies.ToList();
+                rentalDTO.Movies = movieLst;
+                rentalDTO.Movies.AsEnumerable().Select(o => new MovieModel
+                {
+                    Id = o.Id,
+                    Name = o.Name
+                });
                 return View("RentalForm", rentalDTO);
             }
 
@@ -49,8 +55,8 @@ namespace Vidly.Controllers
                 {
                     Rental rental = new Rental();
                     rental.customer = customerAdd;
-                    int id = int.Parse(movie);
-                    rental.movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+                    //int id = int.Parse(movie);
+                    rental.movie = _context.Movies.SingleOrDefault(c => c.Id == movie);
                     rental.DateRented = DateTime.Now;
                     _context.Rentals.Add(rental);                  
 

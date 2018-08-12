@@ -5,8 +5,8 @@
 }
 
 <h2>RentalForm</h2>
-@using (Html.BeginForm("create", "rental"))
-{
+
+<form id="rentalForm">
     <div class="form-group">
         @Html.LabelFor(m => m.CustomerId)
         @Html.TextBoxFor(m => m.CustomerId, new { @class = "form-control" })
@@ -18,11 +18,35 @@
         @Html.ListBoxFor(m => m.MovieIds, new MultiSelectList(Model.Movies, "Id", "Name"), new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.MovieIds)
     </div>
-    <button type="submit" class="btn btn-primary">
+    <button id="btnCreateRental" type="button" class="btn btn-primary">
         submit
     </button>
-}
+
+</form>
+   
+
 
 @section scripts{
-    @Scripts.Render("~/bundles/lib")
-    }
+    @Scripts.Render("~/bundles/lib");
+    <script>
+        $(function () {
+            $("#btnCreateRental").click(function () {
+                $.ajax({
+                    url: "/api/newrental",
+                    method: "POST",
+                    data: $("#rentalForm").serialize(),
+                    success: function (res) {
+                        alert("Ok");
+                    },
+                    error: function () {
+                        alert("fail");
+                    }
+
+                });
+
+            });
+
+        });
+    </script>
+   
+}

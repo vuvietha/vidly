@@ -11,8 +11,12 @@ namespace Vidly.DTO
     {
         [Display(Name ="Customer")]
         public int CustomerId { get; set; }
+
         public IEnumerable<MovieModel> Movies { get; set; }
+
+        public IEnumerable<CustomerModel> Customers { get; set; }
+
         [Display(Name = "Movie")]
-        public List<string> MovieIds { get; set; }
+        public List<int> MovieIds { get; set; }
     }
 }

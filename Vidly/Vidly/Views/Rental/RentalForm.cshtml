@@ -1,0 +1,28 @@
+﻿@model Vidly.DTO.NewRentalDTO
+@{
+    ViewBag.Title = "RentalForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>RentalForm</h2>
+@using (Html.BeginForm("create", "rental"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.CustomerId)
+        @Html.TextBoxFor(m => m.CustomerId, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CustomerId)
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MovieIds)
+        @Html.ListBoxFor(m => m.MovieIds, new MultiSelectList(Model.Movies, "Id", "Name"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MovieIds)
+    </div>
+    <button type="submit" class="btn btn-primary">
+        submit
+    </button>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/lib")
+    }
